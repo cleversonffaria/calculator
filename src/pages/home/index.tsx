@@ -7,7 +7,13 @@ function Calc() {
   return (
     <Container>
       <Calculator>
-        <input type="text" />
+        <input
+          data-testid="resultDisplay"
+          type="text"
+          onChange={(e) => setResult(e.target.value)}
+        />
+
+        {result}
       </Calculator>
     </Container>
   );

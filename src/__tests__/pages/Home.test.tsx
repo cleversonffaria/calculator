@@ -1,13 +1,14 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "src/pages/home";
+import Home from "src/pages/home";
 
 describe("Calculadora", () => {
   it("deve verificar se existe resultado no display", async () => {
-    const { getByText, getByTestId, debug } = render(<App />);
+    const { getByText, getByTestId, debug } = render(<Home />);
 
-    fireEvent.click(getByText("Estou Aqui"));
+    fireEvent.change(getByTestId("resultDisplay"), {
+      target: { value: 123 },
+    });
 
-    expect(getByTestId("calcId")).toContainElement(getByText("Result"));
+    expect(screen.getByTestId("resultDisplay")).toBeInTheDocument();
   });
 });
