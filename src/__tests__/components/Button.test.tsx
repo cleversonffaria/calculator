@@ -1,8 +1,21 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Button from "src/components/buttons";
+import { Button } from "src/components";
 
 describe("Botões", () => {
-  it("deve verificar se existe conteúdo no botão", () => {
-    expect(1 + 1).toBe(2);
+  // deve ser clicavel
+  it("deve ser clicavel", () => {
+    const { getByTestId } = render(<Button onClick={() => { }} />);
+
+    fireEvent.click(getByTestId("buttonCalc"), { target: { value: "2" } })
+
+    expect(getByTestId("buttonCalc")).toHaveValue()
+
+  });
+
+  // deve conter algum valor
+  it("deve conter algum valor", () => {
+    const { getByText } = render(<Button value="2" />);
+
+    expect(getByText("2")).toBeInTheDocument()
   });
 });

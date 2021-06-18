@@ -1,9 +1,28 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 
-import { Container } from "./styles";
+import { Input } from "./styles";
 
-const Display: React.FC = () => {
-  return <Container>Result</Container>;
+interface PropsDisplay extends InputHTMLAttributes<HTMLInputElement> { result?: string }
+
+const Display: React.FC<PropsDisplay> = ({ result, ...props }) => {
+  return (
+    <>
+      <Input
+        data-testid="operatorCalc"
+        type="text"
+        value={result}
+        readOnly
+        displayTop
+      />
+
+      <Input
+        data-testid="resultCalc"
+        type="text"
+        readOnly
+        {...props}
+      />
+    </>
+  )
 };
 
 export default Display;

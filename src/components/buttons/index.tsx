@@ -1,9 +1,26 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 
-import { Container } from "./styles";
+import { WrapperButton } from "./styles";
 
-const Buttons: React.FC = () => {
-  return <Container>x</Container>;
+interface PropsButton extends ButtonHTMLAttributes<HTMLButtonElement> {
+  value?: string | number;
+  operador?: boolean;
+  backgroundColor?: string
+}
+
+const Buttons: React.FC<PropsButton> = ({ value, operador, backgroundColor, ...props }) => {
+  
+  return (
+    <WrapperButton
+      data-testid="buttonCalc"
+      backgroundColor={backgroundColor}
+      operador={operador}
+      value={value}
+      {...props}
+    >
+      {value}
+    </WrapperButton>
+  );
 };
 
 export default Buttons;

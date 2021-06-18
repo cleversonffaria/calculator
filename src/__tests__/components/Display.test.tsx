@@ -1,8 +1,14 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Button from "src/components/buttons";
+
+import { Display } from "src/components"
 
 describe("Display", () => {
-  it("deve verificar se existe informação no display", () => {
-    expect(1 + 1).toBe(2);
+  // Deve verificar se as informações do display existe.
+  it("should check if there is information on the display", () => {
+    const { getByTestId } = render(<Display result="1" value="0" />)
+
+    expect(getByTestId("operatorCalc")).toHaveDisplayValue("1")
+    expect(getByTestId("resultCalc")).toHaveDisplayValue("0")
+
   });
 });
