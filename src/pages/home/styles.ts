@@ -1,27 +1,35 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+interface PropsLinkButton {
+  bgcolor?: string;
+}
 
 export const Container = styled.div`
   display: flex;
-  height: 90vh;
+  height: 100vh;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-export const Calculator = styled.div`
-  background-color: #202020;
-  border-radius: 5px;
-  overflow: hidden;
-  width: 350px;
-  justify-content: center;
-  display: flex;
-  flex-wrap: wrap;
-  box-shadow: 0px 0px 15px -2px rgba(0, 0, 0, 0.5);
-  padding: 10px 5px;
+export const Title = styled.h2`
+  color: #202020;
+  font-size: 30px;
 `;
 
-export const Title = styled.h2`
-  color:#134369;
-  font-size:30px;
-  font-family:sans-serif;
+export const LinkButton = styled(Link)<PropsLinkButton>`
+  color: #fff;
+  text-decoration: none;
+  padding: 20px;
+  border-radius: 10px;
+  background: ${({ bgcolor }) => bgcolor || "#134369"};
+  text-transform: uppercase;
+
+  margin: 20px 10px;
+`;
+
+export const WrapperButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
