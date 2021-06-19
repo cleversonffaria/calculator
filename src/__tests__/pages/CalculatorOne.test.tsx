@@ -3,7 +3,40 @@ import { BrowserRouter as Router } from "react-router-dom";
 import CalculatorOne from "src/pages/CalculatorOne";
 
 describe("Primeira Calculadora", () => {
-  // deve realizar subtrações
+  it("deve conter vinte botões na calculadora", () => {
+    const { getAllByTestId } = render(
+      <Router>
+        <CalculatorOne />
+      </Router>
+    );
+
+    expect(getAllByTestId("buttonCalc").length.toString()).toMatch("20");
+  });
+
+  it("deve existir todos números ", () => {
+    const { getByText } = render(
+      <Router>
+        <CalculatorOne />
+      </Router>
+    );
+    for (var i = 0; i < 9; i++) {
+      expect(getByText(i.toString())).toHaveValue(i.toString());
+    }
+  });
+
+  it("deve conter todos operadores necessários ", () => {
+    const { getByText } = render(
+      <Router>
+        <CalculatorOne />
+      </Router>
+    );
+
+    const operators = ["=", "(", ")", "+", "-", "*", "/", ".", "C", "Limpar"];
+    operators.map((op) => {
+      expect(getByText(op.toString())).toHaveValue(op.toString());
+    });
+  });
+
   it("deve realizar subtrações", () => {
     const { getByText, getByTestId } = render(
       <Router>
@@ -22,7 +55,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("operatorCalc")).toHaveValue("-1");
   });
 
-  // deve realizar somas
   it("deve realizar somas", () => {
     const { getByText, getByTestId } = render(
       <Router>
@@ -41,7 +73,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("operatorCalc")).toHaveValue("3");
   });
 
-  // deve realizar divisões
   it("deve realizar divisões", () => {
     const { getByText, getByTestId } = render(
       <Router>
@@ -60,7 +91,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("operatorCalc")).toHaveValue("0.5");
   });
 
-  // deve realizar multiplações
   it("deve realizar multiplações", () => {
     const { getByText, getByTestId } = render(
       <Router>
@@ -79,7 +109,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("operatorCalc")).toHaveValue("2");
   });
 
-  // deve limpar tela
   it("deve limpar tela", () => {
     const { getByTestId, getByText } = render(
       <Router>
@@ -99,7 +128,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("resultCalc")).toHaveValue("0");
   });
 
-  // deve apagar calculo
   it("deve apagar calculo", () => {
     const { getByTestId, getByText } = render(
       <Router>
@@ -119,7 +147,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("resultCalc")).toHaveValue("1+2");
   });
 
-  // deve exibir calculo
   it("deve exibir calculo", async () => {
     const { getByText, getByTestId } = render(
       <Router>
@@ -134,7 +161,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("resultCalc")).toHaveValue("1");
   });
 
-  // deve exibir resultado do calculo
   it("deve exibir resultado do calculo", () => {
     const { getByText, getByTestId } = render(
       <Router>
@@ -154,7 +180,6 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("operatorCalc")).toHaveValue("3");
   });
 
-  // deve gerar erro
   it("deve gerar erro", () => {
     render(
       <Router>
