@@ -157,15 +157,15 @@ describe("Segunda Calculadora", () => {
     expect(screen.getByTestId("operatorCalc")).toHaveValue("");
 
     fireEvent.click(screen.getByText("1"));
-    fireEvent.click(screen.getByText("+"));
-    fireEvent.click(screen.getByText("("));
+    fireEvent.click(screen.getByText("/"));
+    fireEvent.click(screen.getByText("0"));
 
-    expect(screen.getByTestId("resultCalc")).toHaveValue("1+(");
+    expect(screen.getByTestId("resultCalc")).toHaveValue("1/0");
 
     fireEvent.click(screen.getByText("="));
 
     expect(screen.getByTestId("resultCalc")).toHaveValue("0");
 
-    expect(screen.getByTestId("operatorCalc")).toHaveValue("Error");
+    expect(screen.getByTestId("operatorCalc")).toHaveValue("Não é possível dividir por zero");
   });
 });

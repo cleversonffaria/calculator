@@ -11,6 +11,6 @@ export const Input = styled.input<PropsInput>`
   outline:none;
   text-align: right;
   color:#fff;
-  font-size:${({ displayTop }) => displayTop ? "34px" : "26px"};
+  font-size:${({ displayTop }) => displayTop ? "22px" : "26px"};
   caret-color: transparent;
 `;

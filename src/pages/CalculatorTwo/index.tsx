@@ -10,7 +10,34 @@ export default class CalculatorTwo extends Component {
   };
 
   handleClick = (e: any) => {
+
     e.preventDefault();
+
+    const lastR = this.state.result.split("")[this.state.result.length - 1];
+
+    if (
+      (lastR === e.target.value && !!e.target.value.match(/\D/g)) ||
+      (!!lastR?.match(/\D/g) && !!e.target.value.match(/\D/g))
+    ) {
+      if (lastR !== e.target.value) {
+        this.setState({
+          ...this.state,
+          result: this.state.result.slice(0, this.state.result.length - 1).concat(e.target.value),
+        });
+      }
+      return;
+    } else if (
+      lastR === "0" &&
+      this.state.result.split("")[this.state.result.length - 2]?.match(/\D/g)
+      ) {
+      this.setState({
+        ...this.state,
+        result: this.state.result.slice(0, this.state.result.length - 1).concat(e.target.value),
+      });
+      return;
+    } else if (!lastR && e.target.value === "0") {
+      return;
+    }
     this.setState({
       ...this.state,
       result: this.state.result.concat(e.target.value),
@@ -29,7 +56,42 @@ export default class CalculatorTwo extends Component {
   };
 
   calculate = () => {
+    const lastR = this.state.result.split("")[this.state.result.length - 1];
+
     try {
+      if (!!lastR?.match(/\D/g)) {
+        this.setState({
+          result:
+            eval(
+              this.state.result.slice(0, this.state.result.length - 1)
+            ).toString() +
+            lastR +
+            eval(
+              this.state.result.slice(0, this.state.result.length - 1)
+            ).toString(),
+
+          resultCalc: eval(
+            eval(
+              this.state.result.slice(0, this.state.result.length - 1)
+            ).toString() +
+              lastR +
+              eval(
+                this.state.result.slice(0, this.state.result.length - 1)
+              ).toString()
+          ).toString(),
+        });
+
+        return;
+      } else if (
+        eval(this.state.result).toString() === "-Infinity" ||
+        eval(this.state.result).toString() === "Infinity"
+      ) {
+        this.setState({
+          result: "",
+          resultCalc: "Não é possível dividir por zero",
+        });
+        return;
+      }
       this.setState({
         ...this.state,
         resultCalc: eval(this.state.result).toString(),
@@ -37,7 +99,7 @@ export default class CalculatorTwo extends Component {
     } catch (error) {
       this.setState({
         result: "",
-        resultCalc: "Error",
+        resultCalc: "Não foi possível calcular",
       });
     }
   };
@@ -75,9 +137,9 @@ export default class CalculatorTwo extends Component {
           <Button onClick={this.handleClick} value="3" />
           <Button onClick={this.handleClick} value="+" operador />
 
-          <Button onClick={this.handleClick} value="(" operador />
+          <Button onClick={this.handleClick} value="" operador />
           <Button onClick={this.handleClick} value={0} />
-          <Button onClick={this.handleClick} value=")" operador />
+          <Button onClick={this.handleClick} value="" operador />
 
           <Button
             onClick={this.calculate}

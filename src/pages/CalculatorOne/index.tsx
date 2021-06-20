@@ -9,6 +9,26 @@ function CalculatorOne() {
 
   const handleClick = (e: any) => {
     e.preventDefault();
+
+    const lastR = result.split("")[result.length - 1];
+
+    if (
+      (lastR === e.target.value && !!e.target.value.match(/\D/g)) ||
+      (!!lastR?.match(/\D/g) && !!e.target.value.match(/\D/g))
+    ) {
+      if (lastR !== e.target.value) {
+        setResult(result.slice(0, result.length - 1).concat(e.target.value));
+      }
+      return;
+    } else if (
+      lastR === "0" &&
+      result.split("")[result.length - 2]?.match(/\D/g)
+    ) {
+      setResult(result.slice(0, result.length - 1).concat(e.target.value));
+      return;
+    } else if (!lastR && e.target.value === "0") {
+      return;
+    }
     setResult(result.concat(e.target.value));
   };
 
@@ -22,10 +42,37 @@ function CalculatorOne() {
   };
 
   const calculate = () => {
+    const lastR = result.split("")[result.length - 1];
+
     try {
+      if (!!lastR?.match(/\D/g)) {
+        setResultCalc(
+          eval(
+            eval(result.slice(0, result.length - 1)).toString() +
+              lastR +
+              eval(result.slice(0, result.length - 1)).toString()
+          ).toString()
+        );
+
+        setResult(
+          eval(result.slice(0, result.length - 1)).toString() +
+            lastR +
+            eval(result.slice(0, result.length - 1)).toString()
+        );
+
+        return;
+      } else if (
+        eval(result).toString() === "-Infinity" ||
+        eval(result).toString() === "Infinity"
+      ) {
+        setResultCalc("Não é possível dividir por zero");
+        setResult("");
+        return;
+      }
+
       setResultCalc(eval(result).toString());
     } catch (error) {
-      setResultCalc("Error");
+      setResultCalc("Não foi possível calcular");
       setResult("");
     }
   };
@@ -59,9 +106,9 @@ function CalculatorOne() {
         <Button onClick={handleClick} value="3" />
         <Button onClick={handleClick} value="+" operador />
 
-        <Button onClick={handleClick} value="(" operador />
+        <Button onClick={handleClick} value="" operador />
         <Button onClick={handleClick} value={0} />
-        <Button onClick={handleClick} value=")" operador />
+        <Button onClick={handleClick} value="" operador />
 
         <Button
           onClick={calculate}
