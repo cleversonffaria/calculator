@@ -6,6 +6,7 @@ import { Router } from "react-router-dom";
 import Home from "src/pages/home";
 
 describe("Inicio", () => {
+  
   it("deve redirecionar o usuário para primeira calculadora", () => {
     const history = createMemoryHistory();
 

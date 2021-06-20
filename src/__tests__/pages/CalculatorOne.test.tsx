@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import CalculatorOne from "src/pages/CalculatorOne";
 
 describe("Primeira Calculadora", () => {
+  
   it("deve apresentar os botões em ordem", () => {
     render(
       <Router>
@@ -92,6 +93,7 @@ describe("Primeira Calculadora", () => {
 
     expect(getByTestId("resultCalc")).toHaveValue("0");
     fireEvent.click(getByText("1"));
+    fireEvent.click(getByText("-"));
     fireEvent.click(getByText("-"));
     fireEvent.click(getByText("+"));
     fireEvent.click(getByText("2"));

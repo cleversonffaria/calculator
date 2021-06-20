@@ -7,6 +7,7 @@ function CalculatorOne() {
   const [result, setResult] = useState("");
   const [resultCalc, setResultCalc] = useState("");
 
+  //#region Ações do botão
   const handleClick = (e: any) => {
     e.preventDefault();
 
@@ -32,6 +33,10 @@ function CalculatorOne() {
     setResult(result.concat(e.target.value));
   };
 
+  //#endregion
+
+  //#region Limpar Display
+
   const clear = () => {
     setResult("");
     setResultCalc("");
@@ -41,23 +46,28 @@ function CalculatorOne() {
     setResult(result.slice(0, result.length - 1));
   };
 
+  //#endregion
+
+  //#region Realizar Operação
+
   const calculate = () => {
     const lastR = result.split("")[result.length - 1];
 
     try {
       if (!!lastR?.match(/\D/g)) {
+      
         setResultCalc(
           eval(
-            eval(result.slice(0, result.length - 1)).toString() +
+             eval(result.slice(0, result.length - 1)).toString() +
               lastR +
-              eval(result.slice(0, result.length - 1)).toString()
+              Math.abs(eval(result.slice(0, result.length - 1)).toString())
           ).toString()
         );
 
         setResult(
           eval(result.slice(0, result.length - 1)).toString() +
-            lastR +
-            eval(result.slice(0, result.length - 1)).toString()
+              lastR +
+              Math.abs(eval(result.slice(0, result.length - 1)).toString())
         );
 
         return;
@@ -76,6 +86,8 @@ function CalculatorOne() {
       setResult("");
     }
   };
+
+  //#endregion
 
   return (
     <Container>

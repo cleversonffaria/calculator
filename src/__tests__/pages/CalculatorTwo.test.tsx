@@ -31,6 +31,7 @@ describe("Segunda Calculadora", () => {
     expect(getByTestId("resultCalc")).toHaveValue("0");
     fireEvent.click(getByText("1"));
     fireEvent.click(getByText("-"));
+    fireEvent.click(getByText("-"));
     fireEvent.click(getByText("+"));
     fireEvent.click(getByText("2"));
     expect(getByTestId("resultCalc")).toHaveValue("1+2");
@@ -103,7 +104,6 @@ describe("Segunda Calculadora", () => {
 
     expect(getByTestId("operatorCalc")).toHaveValue("0.5");
   });
-
   
   it("deve realizar multiplações", () => {
     const { getByText, getByTestId } = render(

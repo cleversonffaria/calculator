@@ -8,6 +8,8 @@ export default class CalculatorTwo extends Component {
     result: "",
     resultCalc: "",
   };
+  
+  //#region Ações do botão
 
   handleClick = (e: any) => {
 
@@ -44,6 +46,10 @@ export default class CalculatorTwo extends Component {
     });
   };
 
+  //#endregion
+
+  //#region Limpar Display
+
   clear = () => {
     this.setState({ result: "", resultCalc: "" });
   };
@@ -54,6 +60,10 @@ export default class CalculatorTwo extends Component {
       result: this.state.result.slice(0, this.state.result.length - 1),
     });
   };
+
+  //#endregion
+
+  //#region Realizar Operação
 
   calculate = () => {
     const lastR = this.state.result.split("")[this.state.result.length - 1];
@@ -66,18 +76,14 @@ export default class CalculatorTwo extends Component {
               this.state.result.slice(0, this.state.result.length - 1)
             ).toString() +
             lastR +
-            eval(
-              this.state.result.slice(0, this.state.result.length - 1)
-            ).toString(),
+             Math.abs(eval(this.state.result.slice(0, this.state.result.length - 1)).toString()),
 
           resultCalc: eval(
             eval(
               this.state.result.slice(0, this.state.result.length - 1)
             ).toString() +
               lastR +
-              eval(
-                this.state.result.slice(0, this.state.result.length - 1)
-              ).toString()
+               Math.abs(eval(this.state.result.slice(0, this.state.result.length - 1)).toString())
           ).toString(),
         });
 
@@ -103,6 +109,8 @@ export default class CalculatorTwo extends Component {
       });
     }
   };
+
+  //#endregion
 
   render() {
     return (
