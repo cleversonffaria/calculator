@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, getByTestId } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import CalculatorOne from "src/pages/CalculatorOne";
 
@@ -64,6 +64,52 @@ describe("Primeira Calculadora", () => {
     operators.map((op) => {
       expect(getByText(op.toString())).toHaveValue(op.toString());
     });
+  });
+
+  it("deve substituir o zero após um operador ou ao iniciar um calculo", () => {
+    const { getByTestId, getByText } = render(
+      <Router>
+        <CalculatorOne />
+      </Router>
+    );
+
+    expect(getByTestId("resultCalc")).toHaveValue("0");
+    fireEvent.click(getByText("0"));
+    fireEvent.click(getByText("1"));
+    fireEvent.click(getByText("1"));
+    fireEvent.click(getByText("-"));
+    fireEvent.click(getByText("0"));
+    fireEvent.click(getByText("2"));
+    expect(getByTestId("resultCalc")).toHaveValue("11-2");
+  });
+
+  it("deve trocar o operador ao pressionar outro operador", () => {
+    const { getByTestId, getByText } = render(
+      <Router>
+        <CalculatorOne />
+      </Router>
+    );
+
+    expect(getByTestId("resultCalc")).toHaveValue("0");
+    fireEvent.click(getByText("1"));
+    fireEvent.click(getByText("-"));
+    fireEvent.click(getByText("+"));
+    fireEvent.click(getByText("2"));
+    expect(getByTestId("resultCalc")).toHaveValue("1+2");
+  });
+
+  it("deve calcular o último resultado com o operador se não for passado algum número após o operador", () => {
+    const { getByTestId, getByText } = render(
+      <Router>
+        <CalculatorOne />
+      </Router>
+    );
+
+    expect(getByTestId("resultCalc")).toHaveValue("0");
+    fireEvent.click(getByText("1"));
+    fireEvent.click(getByText("-"));
+    fireEvent.click(getByText("="));
+    expect(getByTestId("resultCalc")).toHaveValue("1-1");
   });
 
   it("deve realizar subtrações", () => {
@@ -209,7 +255,7 @@ describe("Primeira Calculadora", () => {
     expect(getByTestId("operatorCalc")).toHaveValue("3");
   });
 
-  it("deve gerar erro", () => {
+  it("deve gerar erro ao dividir por zero", () => {
     render(
       <Router>
         <CalculatorOne />
@@ -228,6 +274,25 @@ describe("Primeira Calculadora", () => {
 
     expect(screen.getByTestId("resultCalc")).toHaveValue("0");
 
-    expect(screen.getByTestId("operatorCalc")).toHaveValue("Não é possível dividir por zero");
+    expect(screen.getByTestId("operatorCalc")).toHaveValue(
+      "Não é possível dividir por zero"
+    );
+  });
+
+  it("deve gerar erro ao realizar calculos inválidos", () => {
+    render(
+      <Router>
+        <CalculatorOne />
+      </Router>
+    );
+
+    expect(screen.getByTestId("operatorCalc")).toHaveValue("");
+
+    fireEvent.click(screen.getByText("0"));
+    fireEvent.click(screen.getByText("="));
+
+    expect(screen.getByTestId("operatorCalc")).toHaveValue(
+      "Não foi possível calcular"
+    );
   });
 });
