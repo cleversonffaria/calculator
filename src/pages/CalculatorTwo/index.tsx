@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import React, { Component } from "react";
 import { Button, Display } from "src/components";
 
@@ -8,7 +9,7 @@ export default class CalculatorTwo extends Component {
     result: "",
     resultCalc: "",
   };
-  
+
   //#region Ações do botão
 
   handleClick = (e: any) => {
@@ -31,7 +32,7 @@ export default class CalculatorTwo extends Component {
     } else if (
       lastR === "0" &&
       this.state.result.split("")[this.state.result.length - 2]?.match(/\D/g)
-      ) {
+    ) {
       this.setState({
         ...this.state,
         result: this.state.result.slice(0, this.state.result.length - 1).concat(e.target.value),
@@ -76,14 +77,14 @@ export default class CalculatorTwo extends Component {
               this.state.result.slice(0, this.state.result.length - 1)
             ).toString() +
             lastR +
-             Math.abs(eval(this.state.result.slice(0, this.state.result.length - 1)).toString()),
+            Math.abs(eval(this.state.result.slice(0, this.state.result.length - 1)).toString()),
 
           resultCalc: eval(
             eval(
               this.state.result.slice(0, this.state.result.length - 1)
             ).toString() +
-              lastR +
-               Math.abs(eval(this.state.result.slice(0, this.state.result.length - 1)).toString())
+            lastR +
+            Math.abs(eval(this.state.result.slice(0, this.state.result.length - 1)).toString())
           ).toString(),
         });
 

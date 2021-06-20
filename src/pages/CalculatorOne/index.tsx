@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import React, { useState } from "react";
 import { Button, Display } from "src/components";
 
@@ -55,19 +56,19 @@ function CalculatorOne() {
 
     try {
       if (!!lastR?.match(/\D/g)) {
-      
+
         setResultCalc(
           eval(
-             eval(result.slice(0, result.length - 1)).toString() +
-              lastR +
-              Math.abs(eval(result.slice(0, result.length - 1)).toString())
+            eval(result.slice(0, result.length - 1)).toString() +
+            lastR +
+            Math.abs(eval(result.slice(0, result.length - 1)).toString())
           ).toString()
         );
 
         setResult(
           eval(result.slice(0, result.length - 1)).toString() +
-              lastR +
-              Math.abs(eval(result.slice(0, result.length - 1)).toString())
+          lastR +
+          Math.abs(eval(result.slice(0, result.length - 1)).toString())
         );
 
         return;

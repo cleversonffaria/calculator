@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import CalculatorTwo from "src/pages/CalculatorTwo";
 
 describe("Segunda Calculadora", () => {
-  
+
   it("deve substituir o zero após um operador ou ao iniciar um calculo", () => {
     const { getByTestId, getByText } = render(
       <Router>
@@ -104,7 +104,7 @@ describe("Segunda Calculadora", () => {
 
     expect(getByTestId("operatorCalc")).toHaveValue("0.5");
   });
-  
+
   it("deve realizar multiplações", () => {
     const { getByText, getByTestId } = render(
       <Router>

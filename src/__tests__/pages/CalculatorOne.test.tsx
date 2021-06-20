@@ -1,9 +1,9 @@
-import { render, screen, fireEvent, getByTestId } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import CalculatorOne from "src/pages/CalculatorOne";
 
 describe("Primeira Calculadora", () => {
-  
+
   it("deve apresentar os botões em ordem", () => {
     render(
       <Router>
@@ -54,7 +54,7 @@ describe("Primeira Calculadora", () => {
     }
   });
 
-  it("deve conter todos operadores necessários ", () => {
+  it("deve conter todos operadores necessários", () => {
     const { getByText } = render(
       <Router>
         <CalculatorOne />

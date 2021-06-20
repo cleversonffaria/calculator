@@ -9,7 +9,7 @@ interface PropsButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Buttons: React.FC<PropsButton> = ({ value, operador, backgroundColor, ...props }) => {
-  
+
   return (
     <WrapperButton
       data-testid="buttonCalc"

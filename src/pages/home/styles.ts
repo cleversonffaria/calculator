@@ -18,7 +18,7 @@ export const Title = styled.h2`
   font-size: 30px;
 `;
 
-export const LinkButton = styled(Link)<PropsLinkButton>`
+export const LinkButton = styled(Link) <PropsLinkButton>`
   color: #fff;
   text-decoration: none;
   padding: 20px;
